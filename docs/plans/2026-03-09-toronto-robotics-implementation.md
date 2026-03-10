@@ -63,11 +63,11 @@ In `package.json`, change:
 {
   "name": "toronto-robotics",
   "scripts": {
-    "dev": "next dev --port 3002"
+    "dev": "next dev --port 3004"
   }
 }
 ```
-(Port 3002 — CarapaceOS is on 3000, Triggerfishh VPS on 3001.)
+(Port 3004 — CarapaceOS is on 3000, Triggerfishh VPS on 3001.)
 
 **Step 2: Read and update next.config.ts**
 
@@ -91,7 +91,7 @@ export default nextConfig;
 
 ```bash
 git add package.json next.config.ts
-git commit -m "chore: rename project to toronto-robotics, set port 3002"
+git commit -m "chore: rename project to toronto-robotics, set port 3004"
 ```
 
 ---
@@ -885,7 +885,7 @@ Expected: Build completes with no errors. Warnings about missing images/favicons
 npm run dev
 ```
 
-Visit `http://localhost:3002` — should see the Toronto Robotics front page (empty state with "Fresh robot news arriving soon.").
+Visit `http://localhost:3004` — should see the Toronto Robotics front page (empty state with "Fresh robot news arriving soon.").
 
 Visit `/news`, `/reviews`, `/buy`, `/about` — all should render without errors.
 
@@ -899,7 +899,7 @@ git push origin main
 
 ## Task 14: VPS Deployment Setup
 
-**Context:** SSH into the CarapaceOS VPS at `76.13.120.97`. CarapaceOS runs on port 3000. Toronto Robotics will run on port 3002. Nginx will proxy `torontorobotics.carapaceos.com` → `localhost:3002`.
+**Context:** SSH into the CarapaceOS VPS at `76.13.120.97`. CarapaceOS runs on port 3000. Toronto Robotics will run on port 3004. Nginx will proxy `torontorobotics.carapaceos.com` → `localhost:3004`.
 
 **Step 1: SSH into the VPS and set up the repo**
 
@@ -922,7 +922,7 @@ npm install -g pm2
 **Step 3: Start the app with PM2**
 
 ```bash
-pm2 start npm --name "toronto-robotics" -- start -- --port 3002
+pm2 start npm --name "toronto-robotics" -- start -- --port 3004
 pm2 save
 pm2 startup  # follow the printed command to enable auto-start on reboot
 ```
@@ -937,7 +937,7 @@ server {
     server_name torontorobotics.carapaceos.com;
 
     location / {
-        proxy_pass http://localhost:3002;
+        proxy_pass http://localhost:3004;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -1010,7 +1010,7 @@ Use `DATABASE_URL` from environment. Schema is in `db/schema.ts`. The `articles`
 ### Deployment
 - VPS: `76.13.120.97` (CarapaceOS)
 - Process manager: PM2, name `toronto-robotics`
-- Port: 3002
+- Port: 3004
 - To deploy updates: `git pull && npm run build && pm2 restart toronto-robotics`
 ```
 

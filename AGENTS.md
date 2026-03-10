@@ -30,7 +30,7 @@ Use `DATABASE_URL` from environment. Schema is in `db/schema.ts`. The `articles`
 ### Deployment
 - VPS: `76.13.120.97` (CarapaceOS)
 - Process manager: PM2, name `toronto-robotics`
-- Port: 3002
+- Port: 3004
 - To deploy updates: `git pull && npm run build && pm2 restart toronto-robotics`
 
 ### Site Structure
