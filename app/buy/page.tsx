@@ -1,75 +1,84 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Buy a Robot in Toronto",
-  description: "How to buy a robot in Toronto — top manufacturers and where to get them in Canada.",
+  title: "Buy a Humanoid Home Robot",
+  description: "The top 3 viable humanoid and advanced domestic robots available for purchase or pre-order.",
 };
 
 const manufacturers = [
   {
-    name: "Boston Dynamics",
+    name: "Unitree Robotics (G1)",
     description:
-      "The world leader in advanced robotics. Spot and Stretch are available for business and research customers in Canada.",
-    url: "https://bostondynamics.com",
-    category: "Industrial / Research",
-    price: "From ~$75,000 USD",
-  },
-  {
-    name: "iRobot",
-    description:
-      "Home robots for everyday life. The Roomba lineup is widely available at Best Buy, Costco, and Amazon Canada.",
-    url: "https://irobot.ca",
-    category: "Home / Consumer",
-    price: "From ~$300 CAD",
-  },
-  {
-    name: "Unitree Robotics",
-    description:
-      "Affordable quadruped robots for research and developers. Ships to Canada direct. The Go2 is a popular entry-level research platform.",
+      "The most commercially accessible bipedal humanoid. The G1 is a compact, highly agile, 4-foot-tall general-purpose robot. While heavily marketed toward developers and AI researchers, there is no corporate gatekeeping—anyone with a credit card can buy one.",
     url: "https://unitree.com",
-    category: "Research / Developer",
-    price: "From ~$1,600 USD",
+    category: "Bipedal Humanoid",
+    price: "From ~$16,000 USD",
+  },
+  {
+    name: "1X Technologies (NEO)",
+    description:
+      "The safest, purpose-built 'true home' beta. NEO is a lightweight, padded humanoid designed from the ground up to safely interact with humans using soft robotics and gearless actuation. It yields physically if bumped.",
+    url: "https://1x.tech",
+    category: "Home Humanoid (Beta)",
+    price: "TBD / Waitlist",
+  },
+  {
+    name: "Stardust Intelligence (Astribot S1)",
+    description:
+      "A dexterous domestic assistant. By sacrificing bipedal walking for a wheeled base, the Astribot S1 delivers astonishing speed, precision, and human-level arm and hand dexterity for complex domestic chores.",
+    url: "https://astribot.com",
+    category: "Domestic Assistant",
+    price: "Commercial Access",
   },
 ];
 
 export default function BuyPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-black mb-2">Buy a Robot in Toronto</h1>
-      <p className="text-gray-500 mb-10">
-        Whether you&apos;re a business, researcher, or just want a robot at home — here are
-        the top three places to start.
-      </p>
+    <div className="bg-[var(--color-brand-bg)] min-h-screen pb-24">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        
+        <div className="mb-16">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-[var(--color-brand-text)] leading-tight mb-6">
+            Buy a Home Robot
+          </h1>
+          <p className="text-xl text-[var(--color-brand-muted)] leading-relaxed max-w-3xl">
+            While a true autonomous "Rosie the Robot" doesn&apos;t exist quite yet, the consumer market is cracking open. Here are the top three viable humanoid and advanced domestic robots you can reserve or buy right now.
+          </p>
+        </div>
 
-      <div className="space-y-8">
-        {manufacturers.map((m, i) => (
-          <a
-            key={m.name}
-            href={m.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block border border-gray-200 rounded-xl p-6 hover:border-[var(--tr-red)] transition-colors"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-xs font-bold text-white bg-[var(--tr-red)] rounded px-2 py-0.5">
-                    #{i + 1}
-                  </span>
-                  <h2 className="text-xl font-bold group-hover:text-[var(--tr-red)] transition-colors">
-                    {m.name}
-                  </h2>
+        <div className="space-y-6">
+          {manufacturers.map((m, i) => (
+            <a
+              key={m.name}
+              href={m.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block bg-[var(--color-brand-surface)] border border-[var(--color-brand-border)] rounded-sm p-8 hover:border-[var(--color-brand-accent)] transition-all duration-300 shadow-sm hover:shadow-md"
+            >
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+                <div>
+                  <div className="flex items-center gap-4 mb-2">
+                    <span className="text-xs font-black tracking-widest text-[var(--color-brand-surface)] bg-[var(--color-brand-text)] rounded-sm px-3 py-1">
+                      #{i + 1}
+                    </span>
+                    <h2 className="text-2xl font-serif font-black text-[var(--color-brand-text)] group-hover:text-[var(--color-brand-accent)] transition-colors">
+                      {m.name}
+                    </h2>
+                  </div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[var(--color-brand-accent)] mb-4">{m.category}</p>
+                  <p className="text-[var(--color-brand-muted)] leading-relaxed">{m.description}</p>
                 </div>
-                <p className="text-sm text-[var(--tr-red)] font-medium mb-2">{m.category}</p>
-                <p className="text-gray-600">{m.description}</p>
+                
+                <div className="md:text-right shrink-0 flex flex-row md:flex-col justify-between items-center md:items-end border-t border-[var(--color-brand-border)] md:border-none pt-4 md:pt-0 mt-4 md:mt-0">
+                  <p className="text-sm font-bold text-[var(--color-brand-text)] tracking-wide">{m.price}</p>
+                  <span className="inline-flex items-center gap-2 px-4 py-2 mt-0 md:mt-4 bg-[var(--color-brand-bg)] border border-[var(--color-brand-border)] rounded-sm text-xs font-bold uppercase tracking-widest text-[var(--color-brand-text)] group-hover:text-[var(--color-brand-accent)] group-hover:border-[var(--color-brand-accent)] transition-all">
+                    Visit site <span className="text-sm">→</span>
+                  </span>
+                </div>
               </div>
-              <div className="text-right shrink-0">
-                <p className="text-sm font-semibold text-gray-700">{m.price}</p>
-                <span className="text-xs text-[var(--tr-red)] mt-1 block">Visit site →</span>
-              </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );

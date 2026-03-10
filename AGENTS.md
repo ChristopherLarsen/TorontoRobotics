@@ -16,11 +16,18 @@ OpenClaw runs on `vps.carapaceos.com` and writes directly to the `articles` tabl
 ### Database Access
 Use `DATABASE_URL` from environment. Schema is in `db/schema.ts`. The `articles` table is the primary content table.
 
+### Content & Image Guidelines
+For instructions on how to properly format and add different types of content (News, Reviews, Buying Guides, and Vendors) so that they match the premium design system, see:
+**[How to add content to the site (CONTENT.md)](CONTENT.md)**
+
+For instructions on how to safely acquire, format, and generate copyright-free imagery using Nano Banana 2 and official Press Kits, see:
+**[How to make and source images (IMAGE.md)](IMAGE.md)**
+
 ### Article Schema Reference
 - `slug` — URL-safe unique identifier
 - `title` — Headline
-- `summary` — 1-2 sentence summary for cards
-- `body` — Full article body (plain text or markdown)
+- `summary` — 1-2 sentence summary for cards and article sub-headlines
+- `body` — Full article body (plain text, formatted with double newlines)
 - `category` — `news`, `review`, or `buy-guide`
 - `publishedAt` — Publication timestamp
 - `sourceUrl` — Original source URL (optional)
@@ -33,12 +40,15 @@ Use `DATABASE_URL` from environment. Schema is in `db/schema.ts`. The `articles`
 - Port: 3004
 - To deploy updates: `git pull && npm run build && pm2 restart toronto-robotics`
 
+### Image Fetcher Agent (`agent-fetcher`)
+Use `agent-fetcher` to get images for articles. It handles everything: generates images via Nano Banana 2 for news/conceptual articles, finds press kit images for product reviews. See `.claude/agents/agent-fetcher.md` for full spec. Script: `scripts/generate-article-images.ts`.
+
 ### Site Structure
 | Route | Purpose |
 |-------|---------|
-| `/` | Front page — hero article + 6 latest news |
+| `/` | Front page — hero article + latest news & trending lists |
 | `/news` | All news articles (category=news) |
-| `/news/[slug]` | Individual article |
+| `/news/[slug]` | Individual article (News or Review layout) |
 | `/reviews` | Robot reviews (category=review) |
-| `/buy` | Top 3 robot manufacturers |
+| `/buy` | Top robot manufacturers directory |
 | `/about` | About Toronto Robotics |

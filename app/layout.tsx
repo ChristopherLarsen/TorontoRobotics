@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -9,17 +9,22 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "Toronto Robotics — Robot News, Reviews & Buying Guide",
+    default: "Toronto Robotics — Premium Robot Reviews & Buying Guide",
     template: "%s | Toronto Robotics",
   },
   description:
-    "Your source for robot news, reviews, and how to buy a robot in Toronto. Updated daily.",
+    "Your definitive guide to finding the best robots in Toronto. Premium reviews, comparisons, and news.",
   keywords: [
     "robots Toronto",
-    "robot news",
     "robot reviews",
+    "best robots",
     "buy robot Toronto",
     "robotics Canada",
     "home robots",
@@ -31,7 +36,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://torontorobotics.carapaceos.com" },
   openGraph: {
     title: "Toronto Robotics",
-    description: "Robot news, reviews, and buying guide for Toronto.",
+    description: "Premium robot reviews and buying guide for Toronto.",
     url: "https://torontorobotics.carapaceos.com",
     siteName: "Toronto Robotics",
     locale: "en_CA",
@@ -44,7 +49,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} ${lora.variable} antialiased bg-[var(--color-bg)] text-[var(--color-text)]`}>
         <NavBar />
         <main>{children}</main>
         <Footer />
