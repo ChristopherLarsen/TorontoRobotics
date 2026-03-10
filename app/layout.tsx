@@ -1,126 +1,53 @@
 import type { Metadata } from "next";
-import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Instrument_Serif } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import SiteFooter from "../components/SiteFooter";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
-const GA_ID = "G-RZFK2Z4YBL";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Triggerfishh — Voice-Activated Mac Automation",
-    template: "%s | Triggerfishh",
+    default: "Toronto Robotics — Robot News, Reviews & Buying Guide",
+    template: "%s | Toronto Robotics",
   },
   description:
-    "Control any Mac app with your voice. Launch apps, run scripts, automate workflows — all hands-free. AI-powered, privacy-first. One-time purchase, no subscription.",
+    "Your source for robot news, reviews, and how to buy a robot in Toronto. Updated daily.",
   keywords: [
-    "voice control Mac",
-    "Mac voice automation",
-    "voice commands macOS",
-    "hands-free Mac",
-    "AI Mac automation",
-    "control Mac with voice",
-    "voice activated Mac app",
-    "AppleScript voice control",
-    "macOS voice assistant",
-    "Mac productivity tool",
-    "Triggerfishh",
+    "robots Toronto",
+    "robot news",
+    "robot reviews",
+    "buy robot Toronto",
+    "robotics Canada",
+    "home robots",
+    "robot buying guide",
   ],
-  authors: [{ name: "DeadRatGames Inc." }],
-  creator: "DeadRatGames Inc.",
-  publisher: "DeadRatGames Inc.",
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
-    apple: "/apple-touch-icon.png",
-  },
-  metadataBase: new URL("https://www.triggerfishh.com"),
-  alternates: {
-    canonical: "https://www.triggerfishh.com",
-  },
+  authors: [{ name: "Toronto Robotics" }],
+  creator: "Toronto Robotics",
+  metadataBase: new URL("https://torontorobotics.carapaceos.com"),
+  alternates: { canonical: "https://torontorobotics.carapaceos.com" },
   openGraph: {
-    title: "Triggerfishh — Voice-Activated Mac Automation",
-    description:
-      "Control any Mac app with your voice. Launch apps, run scripts, automate workflows — all hands-free. AI-powered, privacy-first.",
-    url: "https://www.triggerfishh.com",
-    siteName: "Triggerfishh",
-    locale: "en_US",
+    title: "Toronto Robotics",
+    description: "Robot news, reviews, and buying guide for Toronto.",
+    url: "https://torontorobotics.carapaceos.com",
+    siteName: "Toronto Robotics",
+    locale: "en_CA",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Triggerfishh — Voice-Activated Mac Automation",
-    description:
-      "Control any Mac app with your voice. Launch apps, run scripts, automate workflows — all hands-free. AI-powered, privacy-first.",
-  },
-};
-
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Triggerfishh",
-  url: "https://www.triggerfishh.com",
-  logo: "https://www.triggerfishh.com/images/Icon.png",
-  description:
-    "Triggerfishh is a voice-activated Mac automation app that lets you control any Mac app with your voice.",
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "contact@triggerfishh.com",
-    contactType: "customer support",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <head>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_ID}');
-          `}
-        </Script>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd),
-          }}
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
-      >
-        {children}
-        <SiteFooter />
+      <body className={`${inter.variable} antialiased`}>
+        <NavBar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

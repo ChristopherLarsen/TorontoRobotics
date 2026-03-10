@@ -15,6 +15,13 @@
       "when": 1771224269930,
       "tag": "0001_volatile_mariko_yashida",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1773103786074,
+      "tag": "0002_smiling_black_bolt",
+      "breakpoints": true
     }
   ]
 }

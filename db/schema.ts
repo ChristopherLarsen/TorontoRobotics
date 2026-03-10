@@ -162,3 +162,30 @@ export const webhookEvents = pgTable(
   },
   (table) => [index("idx_webhook_events_event_type").on(table.eventType)]
 );
+
+/* ─────────────────────────────────────────────
+   articles
+   ───────────────────────────────────────────── */
+
+export const articles = pgTable(
+  "articles",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    slug: text("slug").unique().notNull(),
+    title: text("title").notNull(),
+    summary: text("summary").notNull(),
+    body: text("body").notNull(),
+    category: varchar("category", { length: 50 }).notNull().default("news"),
+    publishedAt: timestamp("published_at", { withTimezone: true }).notNull(),
+    sourceUrl: text("source_url"),
+    isFeatured: boolean("is_featured").default(false),
+    imageUrl: text("image_url"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("idx_articles_slug").on(table.slug),
+    index("idx_articles_category").on(table.category),
+    index("idx_articles_published_at").on(table.publishedAt),
+    index("idx_articles_is_featured").on(table.isFeatured),
+  ]
+);

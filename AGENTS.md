@@ -1,17 +1,44 @@
-# TriggerfishhWeb
+# Toronto Robotics — Agent Instructions
 
-## Dev Server
+## Overseer Agent
 
-- **Port**: 3001 (`npm run dev` runs on http://localhost:3001)
-- CarapaceOS occupies port 3000 — do not use it for this project.
+The **overseer** agent manages the Toronto Robotics website content.
 
-## Routing
+### Responsibilities
+- Monitor the site for stale content (front page article older than 24h)
+- Coordinate with OpenClaw for nightly article generation
+- Add robot reviews to the database when instructed
+- Update the /buy page manufacturer list when needed
 
-- **`/`** — Gateway / coming-soon page with countdown timer and access code form. On correct code, redirects to `/landing`.
-- **`/landing`** — Full product landing page.
-- Access codes: `shirin`, `peter`, `sochi` (case-insensitive).
+### OpenClaw Integration
+OpenClaw runs on `vps.carapaceos.com` and writes directly to the `articles` table in the Neon DB. The overseer monitors the DB for the latest featured article and alerts if no article has been published in the last 24 hours.
 
-## Branding
+### Database Access
+Use `DATABASE_URL` from environment. Schema is in `db/schema.ts`. The `articles` table is the primary content table.
 
-- The brand name is **Triggerfishh** (two h's). The extra **h** at the end is always rendered in the brand orange color (`var(--tf-orange)`).
-- Use the `<Tf />` component for inline brand name rendering and the `brandify()` helper to process plain strings that contain "Triggerfishh".
+### Article Schema Reference
+- `slug` — URL-safe unique identifier
+- `title` — Headline
+- `summary` — 1-2 sentence summary for cards
+- `body` — Full article body (plain text or markdown)
+- `category` — `news`, `review`, or `buy-guide`
+- `publishedAt` — Publication timestamp
+- `sourceUrl` — Original source URL (optional)
+- `isFeatured` — Set `true` for today's hero article (only one at a time)
+- `imageUrl` — Hero image URL (optional)
+
+### Deployment
+- VPS: `76.13.120.97` (CarapaceOS)
+- Process manager: PM2, name `toronto-robotics`
+- Port: 3002
+- To deploy updates: `git pull && npm run build && pm2 restart toronto-robotics`
+
+### Site Structure
+| Route | Purpose |
+|-------|---------|
+| `/` | Front page — hero article + 6 latest news |
+| `/news` | All news articles (category=news) |
+| `/news/[slug]` | Individual article |
+| `/reviews` | Robot reviews (category=review) |
+| `/buy` | Top 3 robot manufacturers |
+| `/about` | About Toronto Robotics |
