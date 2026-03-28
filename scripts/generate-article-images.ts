@@ -4,6 +4,10 @@ import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "../db/schema";
 import { eq } from "drizzle-orm";
 import sharp from "sharp";
+import fs from "fs";
+import path from "path";
+
+const IMAGES_DIR = path.join(__dirname, "..", "public", "images", "articles");
 
 const MODEL_ENDPOINT =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent";
@@ -64,7 +68,7 @@ function buildPrompt(article: ArticleForImage, aspectRatio: string): string {
   return fullPrompt;
 }
 
-async function generateImageWithGemini(prompt: string): Promise<string | null> {
+async function generateImageWithGemini(prompt: string, slug: string): Promise<string | null> {
   const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) {
     throw new Error("GOOGLE_API_KEY not set");
@@ -120,9 +124,21 @@ async function generateImageWithGemini(prompt: string): Promise<string | null> {
       return null;
     }
 
-    // Convert base64 to data URL
-    const imageDataUrl = `data:image/jpeg;base64,${base64}`;
-    return imageDataUrl;
+    // Save as optimized JPEG file instead of base64 data URI
+    fs.mkdirSync(IMAGES_DIR, { recursive: true });
+    const buffer = Buffer.from(base64, "base64");
+    const optimized = await sharp(buffer)
+      .resize({ width: 1600, withoutEnlargement: true })
+      .jpeg({ quality: 80 })
+      .toBuffer();
+
+    const filename = `${slug}.jpg`;
+    const filePath = path.join(IMAGES_DIR, filename);
+    fs.writeFileSync(filePath, optimized);
+
+    const publicUrl = `/images/articles/${filename}`;
+    console.log(`   Saved: ${filePath} (${Math.round(optimized.length / 1024)}KB)`);
+    return publicUrl;
   } catch (error) {
     console.error("Error calling Gemini API:", error);
     return null;
@@ -163,7 +179,7 @@ async function generateImagesForArticles(
         console.log(`⏳ Generating image for: ${article.title}`);
         console.log(`   Prompt: ${prompt.substring(0, 80)}...`);
 
-        const imageUrl = await generateImageWithGemini(prompt);
+        const imageUrl = await generateImageWithGemini(prompt, article.slug);
 
         if (imageUrl) {
           // Update database with image URL

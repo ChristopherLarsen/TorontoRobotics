@@ -5,7 +5,7 @@ import { desc } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
-const BASE_URL = "https://torontorobotics.carapaceos.com";
+const BASE_URL = "https://robots.deadratgames.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allArticles = await db

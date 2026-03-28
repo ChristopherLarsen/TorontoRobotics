@@ -3,6 +3,7 @@ import { articles } from "../db/schema";
 import { eq, desc } from "drizzle-orm";
 import Link from "next/link";
 import ArticleCard from "../components/ArticleCard";
+import RobotCarousel from "../components/RobotCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -68,6 +69,10 @@ export default async function HomePage() {
             </div>
           )}
         </section>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <RobotCarousel />
       </div>
 
       {/* Editor's Spotlight - Premium Teal Section (Full Bleed) */}

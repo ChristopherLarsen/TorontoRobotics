@@ -6,35 +6,35 @@ const humanoids = [
     slug: "1x-neo",
     badge: "Top Home Choice",
     description: "Explicitly marketed as a consumer-ready home robot with chores, voice interface, and self-charging capabilities.",
-    imageUrl: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "https://cdn.sanity.io/images/qka6yvsc/production/062d9d9fa6c099fff2d5fd082af3769475e57285-6570x4380.jpg?w=800&auto=format",
   },
   {
     name: "Unitree R1",
     slug: "unitree-r1",
     badge: "Best Value",
     description: "Far cheaper than most humanoids, the R1 is one of the few you can actually preorder at a consumer-friendly price point.",
-    imageUrl: "https://images.unsplash.com/photo-1546776310-eef45dd6d63c?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "https://www.unitree.com/images/eec8d82f279b440ea170982ffa80b3fa_3840x2160.jpg",
   },
   {
     name: "Unitree G1",
     slug: "unitree-g1",
     badge: "Prosumer Pick",
     description: "A developer/prosumer platform that stands out as one of the strongest general-purpose humanoids you can buy today.",
-    imageUrl: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "https://www.unitree.com/images/52688de58de044358e4792a5b7c1593d_2740x1720.jpg",
   },
   {
     name: "Figure 03",
     slug: "figure-03",
     badge: "Most Anticipated",
     description: "High on promise for laundry, cleaning, and dishes, though general retail availability is still limited.",
-    imageUrl: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "https://images.ctfassets.net/qx5k8y1u9drj/2qouCIcKmTzyS3v2HqyQB2/1dbed1bf7345042abc62823d9d890593/hero-figure-03-image-02.jpg",
   },
   {
     name: "Pepper",
     slug: "pepper",
     badge: "Social Pioneer",
     description: "The best-known social humanoid, offering a people-facing experience geared more toward interaction than physical chores.",
-    imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "https://us.softbankrobotics.com/hubfs/SBR_Pepper-Hero_FullRobot.png",
   }
 ];
 
@@ -82,7 +82,7 @@ export default function RobotCarousel() {
           </Link>
         ))}
       </div>
-      <style dangerouslySetContent={{__html: `
+      <style dangerouslySetInnerHTML={{__html: `
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
