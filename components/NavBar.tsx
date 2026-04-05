@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import PasswordModal from "./PasswordModal";
 
 export default function NavBar() {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   return (
     <nav className="border-b border-[var(--color-brand-border)] bg-[var(--color-brand-surface)] sticky top-0 z-50 transition-colors duration-200">
@@ -59,6 +61,12 @@ export default function NavBar() {
             <Link href="/about" className="text-sm font-semibold tracking-wide text-[var(--color-brand-text)] hover:text-[var(--color-brand-accent)] uppercase transition-colors">
               About
             </Link>
+            <button
+              onClick={() => setIsPasswordModalOpen(true)}
+              className="text-sm font-semibold tracking-wide text-[var(--color-brand-accent)] border border-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)] hover:text-white px-4 py-1.5 uppercase transition-colors"
+            >
+              Our Business
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,6 +79,11 @@ export default function NavBar() {
           </div>
         </div>
       </div>
+
+      <PasswordModal
+        isOpen={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+      />
     </nav>
   );
 }
