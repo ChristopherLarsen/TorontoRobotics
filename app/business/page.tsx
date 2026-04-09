@@ -99,12 +99,20 @@ const navLinks = [
   },
 ];
 
-const feasibilityLink = {
-  title: "Use Case Feasibility",
-  href: "/business/feasibility",
-  description:
-    "Tech gap analyses for specific applications \u2014 starting with autonomous bathroom cleaning.",
-};
+const feasibilityLinks = [
+  {
+    title: "Feasibility — Bathroom Cleaning",
+    href: "/business/feasibility",
+    description:
+      "Tech gap analysis for autonomous bathroom cleaning on the G-1.",
+  },
+  {
+    title: "Feasibility — Supermarket Restocking",
+    href: "/business/feasibility-stocking",
+    description:
+      "Tech gap analysis for shelf restocking: cans, chip bags, case opening, and staged workflows.",
+  },
+];
 
 const concernsLink = {
   title: "Open Concerns",
@@ -278,22 +286,25 @@ export default function BusinessHub() {
               </p>
             </Link>
           ))}
-          <Link
-            href={feasibilityLink.href}
-            className="group sm:col-span-2 bg-[var(--color-brand-surface)] border border-teal-800/50 hover:border-teal-500 p-5 rounded-sm transition-colors"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="font-bold text-base text-teal-400">
-                {feasibilityLink.title}
-              </h3>
-              <span className="text-teal-400 group-hover:translate-x-1 transition-transform">
-                &rarr;
-              </span>
-            </div>
-            <p className="text-sm text-[var(--color-brand-muted)] leading-relaxed">
-              {feasibilityLink.description}
-            </p>
-          </Link>
+          {feasibilityLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="group bg-[var(--color-brand-surface)] border border-teal-800/50 hover:border-teal-500 p-5 rounded-sm transition-colors"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-bold text-base text-teal-400">
+                  {link.title}
+                </h3>
+                <span className="text-teal-400 group-hover:translate-x-1 transition-transform">
+                  &rarr;
+                </span>
+              </div>
+              <p className="text-sm text-[var(--color-brand-muted)] leading-relaxed">
+                {link.description}
+              </p>
+            </Link>
+          ))}
           <Link
             href={concernsLink.href}
             className="group sm:col-span-2 bg-[var(--color-brand-surface)] border border-red-800/50 hover:border-red-600 p-5 rounded-sm transition-colors"
